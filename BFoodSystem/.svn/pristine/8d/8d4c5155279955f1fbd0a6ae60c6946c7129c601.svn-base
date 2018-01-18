@@ -1,0 +1,576 @@
+//
+//  BFAddFoodDetailController.m
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/28.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import "BFAddFoodDetailController.h"
+#import "BFFoodDetailTopCell.h"
+#import "BFTextViewCell.h"
+#import "BFUpImageController.h"
+#import "BFFoodServices.h"
+#import "BFFoodClassModel.h"
+#import "BFImageUploadServices.h"
+#import "BFFoodTypeModel.h"
+#import "SDWebImageManager.h"
+
+@interface BFAddFoodDetailController ()<UITableViewDelegate,UITableViewDataSource,BFUpImageControllerDelegate,BFFoodDetailTopCellIdelegate,UITextFieldDelegate,UITextViewDelegate>
+
+@property (nonatomic, strong) UITableView *tabbleView;
+@property (nonatomic, strong) NSMutableArray *dataArr;
+
+@property (nonatomic, strong) BFUpImageController *upImageVc;
+
+@property (nonatomic, strong) UIScrollView *scrollView;
+
+@property (nonatomic, strong) NSMutableArray *photoArr;
+@property (nonatomic, strong) NSArray *photoAsset;
+
+@property (nonatomic, strong) BFFoodDetailTopCell *topCell;
+@property (nonatomic, strong) BFTextViewCell *textCell;
+
+@property (nonatomic, strong) NSMutableArray *foodClassArr;
+
+@property (nonatomic, strong) NSMutableArray *foodTypeArr;
+
+@property (nonatomic ,strong) NSMutableArray *picIdsArr;
+
+@property (nonatomic, copy) NSString *picIdStr;
+
+@property (nonatomic, assign) BOOL isEdit;
+
+@end
+
+@implementation BFAddFoodDetailController
+
+- (UITableView *)tabbleView{
+    if (!_tabbleView) {
+        CGRect frame ;
+        if (self.foodVcType == foodDetailNew) {
+            frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 120);
+        }else{
+            frame = CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 170);
+        }
+        _tabbleView = [[UITableView alloc] initWithFrame:frame style:UITableViewStylePlain];
+        _tabbleView.delegate = self;
+        _tabbleView.dataSource = self;
+        [_tabbleView registerNib:[UINib nibWithNibName:@"BFFoodDetailTopCell" bundle:nil] forCellReuseIdentifier:BFFoodDetailTopCellIdentifier];
+        [_tabbleView registerNib:[UINib nibWithNibName:@"BFTextViewCell" bundle:nil] forCellReuseIdentifier:BFTextViewCellIdentifier];
+        _tabbleView.tableFooterView = [[UIView alloc] init];
+        _tabbleView.separatorColor = [UIColor clearColor];
+    }
+    return _tabbleView;
+}
+
+-(NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
+
+- (NSMutableArray *)foodClassArr{
+    if (!_foodClassArr) {
+        _foodClassArr = [NSMutableArray array];
+    }
+    return _foodClassArr;
+}
+
+- (NSMutableArray *)foodTypeArr{
+    if (!_foodTypeArr) {
+        _foodTypeArr = [NSMutableArray array];
+    }
+    return _foodTypeArr;
+}
+
+- (NSMutableArray *)picIdsArr{
+    if (!_picIdsArr) {
+        _picIdsArr = [NSMutableArray array];
+    }
+    return _picIdsArr;
+}
+
+- (NSString *)picIdStr{
+    if (!_picIdStr) {
+        _picIdStr = [NSString string];
+    }
+    return _picIdStr;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    if (self.foodVcType == foodDetailNew) {
+        self.title = @"新增菜品";
+    }else{
+        self.title = @"菜品详情";
+    }
+
+    
+    [self setStatusForSubViews];
+    [self addUpImageViewForTableFootView];
+    
+    [self getFoodClassRequest];
+    [self configDefaultInfo];
+}
+
+- (void)setStatusForSubViews{
+    [self.view addSubview:self.tabbleView];
+}
+
+- (void)back{
+    [self.view endEditing:YES];
+    if (self.foodVcType == foodDetailChange && _isEdit) {
+        UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"" message:@"您编辑了信息尚未保存，是否保存？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self submitAction];
+            [self.navigationController popViewControllerAnimated:YES];
+        }];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action){
+              [self.navigationController popViewControllerAnimated:YES];
+        }];
+        [alertVc addAction:okAction];
+        [alertVc addAction:cancelAction];
+        [self presentViewController:alertVc animated:YES completion:nil];
+    } else {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+}
+
+
+- (void)addUpImageViewForTableFootView{
+    self.upImageVc = [[BFUpImageController alloc] init];
+    self.upImageVc.vcIdentifier = @"BFAddFoodDetailController";
+    self.upImageVc.delegate = self;
+    if (self.foodVcType == foodDetailChange) {
+        self.upImageVc.imageType = upImageTypeUrl;
+    }else{
+        self.upImageVc.imageType = upImageTypeImage;
+    }
+    [self addChildViewController:self.upImageVc];
+    
+    UIButton *submitBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [submitBtn addTarget:self action:@selector(submitAction) forControlEvents:UIControlEventTouchUpInside];
+    [submitBtn setBackgroundColor:[UIColor colorWithHex:BF_COLOR_B10]];
+    submitBtn.titleLabel.font = [UIFont systemFontOfSize:BF_FONTSIZE_a3];
+    submitBtn.layer.cornerRadius = 5;
+    submitBtn.clipsToBounds = YES;
+    [self.view addSubview:submitBtn];
+    [submitBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(10);
+        make.right.equalTo(self.view).offset(-10);
+        make.bottom.equalTo(self.view).offset (-10);
+        make.height.mas_equalTo(40);
+    }];
+    
+    
+    if (self.foodVcType == foodDetailChange) {
+        UIButton *delectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [delectBtn setTitle:@"删除" forState:UIControlStateNormal];
+        [delectBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [delectBtn addTarget:self action:@selector(changeInfoAction:) forControlEvents:UIControlEventTouchUpInside];
+        [delectBtn setBackgroundColor:[UIColor colorWithHex:BF_COLOR_B10]];
+        delectBtn.titleLabel.font = [UIFont systemFontOfSize:BF_FONTSIZE_a3];
+        delectBtn.layer.cornerRadius = 5;
+        delectBtn.clipsToBounds = YES;
+        [self.view addSubview:delectBtn];
+        [delectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.right.height.equalTo(submitBtn);
+            make.bottom.equalTo(submitBtn.mas_top).offset(-5);
+        }];
+        
+    }
+    
+    
+}
+
+-  (void)configDefaultInfo{
+    
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+        [self dealWithPicIds];
+        NSMutableArray *imaArr = [NSMutableArray array];
+        for (NSString *urlStr in self.foodModel.pic_url) {
+            dispatch_group_enter(group);
+
+            SDWebImageManager *manager = [SDWebImageManager sharedManager] ;
+            [manager downloadImageWithURL:[NSURL URLWithString:urlStr] options:0 progress:^(NSInteger   receivedSize, NSInteger expectedSize) {
+
+            }  completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType,   BOOL finished, NSURL *imageURL) {
+                if (image) {
+                    [imaArr addObject:image];
+
+                }
+                dispatch_group_leave(group);
+
+            }];
+
+        }
+
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        self.photoArr = imaArr;
+        [self.tabbleView reloadData];
+    });
+}
+
+
+- (void)getFoodClassRequest{
+    
+    
+    [[BFFoodServices alloc] getDishesListWtihSaleStatus:@"" SuccessBlock:^(id result) {
+        self.foodClassArr = (NSMutableArray *)result;
+        if (self.foodClassArr.count==0) {
+            [BFUtils showAlertController:0 title:@"" message:@"暂无菜品分类信息，请新增菜品分类。"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+            return ;
+        }
+        for (BFFoodClassModel *classModel in self.foodClassArr) {
+            classModel.isSelect = NO;
+            for (BFFoodTypeModel *typeMdoel in self.foodModel.typeArr) {
+                if ([typeMdoel.foodClassId integerValue] == [classModel.foodClassId integerValue] && [typeMdoel.is_shelf integerValue] == 1) {
+                    classModel.isSelect = YES;
+                }
+            }
+        }
+        [self.tabbleView reloadData];
+        
+        
+    } errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+        [BFUtils showAlertController:0 title:@"" message:errorMessage];
+        
+    } Failure:^(NSError *error) {
+        [BFUtils showAlertController:0 title:@"" message:@"网络错误"];
+        
+    }];
+    
+}
+
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == 0) {
+        return BFFoodDetailTopCellHeight;
+    }else if(indexPath.row == 1){
+        return BFTextViewCellHeight;
+    }else{
+        return 340;
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    UITableViewCell *tabCell;
+    if (indexPath.row == 0) {
+        BFFoodDetailTopCell *cell = [tableView dequeueReusableCellWithIdentifier:BFFoodDetailTopCellIdentifier forIndexPath:indexPath];
+        self.topCell  = cell;
+        [cell updataCollectionViewWithFoodClassArr:self.foodClassArr];
+        cell.delegate = self;
+        if (self.foodVcType == foodDetailChange) {
+            cell.foodNameTf.tag = 100;
+            cell.priceTf.tag = 200;
+            cell.foodNameTf.delegate = self;
+            cell.priceTf.delegate = self;
+        }
+        if (self.foodModel) {
+            [cell configFoodName:self.foodModel.name andFoodPrice:self.foodModel.price];
+        }
+        tabCell = cell;
+    }else if(indexPath.row == 1){
+        BFTextViewCell *textCell = [tableView dequeueReusableCellWithIdentifier:BFTextViewCellIdentifier forIndexPath:indexPath];
+        self.textCell = textCell;
+        if (self.foodVcType == foodDetailChange) {
+            textCell.textView.delegate = self;
+        }
+        if (self.foodModel) {
+            [textCell setTextViewText:self.foodModel.foodDescription];
+        }else{
+            [textCell textViewPlacehodel];
+        }
+        tabCell = textCell;
+    }else{
+        
+        tabCell = [tableView dequeueReusableCellWithIdentifier:@"cellIdentifier"];
+        if (!tabCell) {
+            tabCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellIdentifier"];
+        }
+        [self.upImageVc updtaCollectionViewWithPhotoArr:self.photoArr];
+        [tabCell addSubview:self.upImageVc.view];
+        
+    }
+    tabCell.selectionStyle = UITableViewCellSelectionStyleNone;
+    return tabCell;
+}
+
+#pragma mark -- 
+- (void)didSelectImageArr:(NSArray *)photoArr imageInfoArr:(NSArray *)photoAsset identifier:(NSString *)identifier{
+    if ([identifier isEqualToString:@"BFAddFoodDetailController"]) {
+        [self savePhoto:photoArr photoAsset:photoAsset];
+        [self.photoArr addObjectsFromArray:photoArr];
+        [self.upImageVc updtaCollectionViewWithPhotoArr:self.photoArr];
+        _isEdit = YES;
+    }
+}
+
+
+- (void)savePhoto:(NSArray *)photoArr photoAsset:(NSArray *)photoAsset{
+    [BFUtils showProgressHUDWithTitle:@"图片上传中..." inView:self.view animated:YES];
+    [[BFImageUploadServices alloc] uploadImageWithImage:photoArr parame:photoAsset completion:^(NSArray *resultArr) {
+        [BFUtils hideProgressHUDInView:self.view delegate:self animated:YES afterDelay:0];
+        BOOL isSuccess = YES;
+        NSMutableString *uploadMsg = [NSMutableString stringWithString:@"第"];
+        NSMutableString *idStr = [NSMutableString string];
+        for (int i= 0;i < resultArr.count; i++) {
+            NSDictionary *resdic = resultArr[i];
+            if([[resdic objectForKey:@"code"] integerValue]!=0){
+                isSuccess = NO;
+                NSString *numStr;
+                if (i==resultArr.count -1) {
+                    numStr  = [NSString stringWithFormat:@"%d",i +1];
+                }else{
+                    numStr  = [NSString stringWithFormat:@"%d,",i + 1];
+                }
+                [uploadMsg appendString:numStr];
+            }else{
+                NSArray *imageArr = [[resdic objectForKey:@"data"] objectForKey:@"list"];
+                if (i==resultArr.count-1) {
+                    [idStr appendString:[NSString stringWithFormat:@"%@",[imageArr.lastObject objectForKey:@"id"]]];
+                }else{
+                    [idStr appendString:[NSString stringWithFormat:@"%@,",[imageArr.lastObject objectForKey:@"id"]]];
+                }
+            }
+        }
+        if (![idStr isEqualToString:@""]) {
+            if([self.picIdStr isEqualToString:@""]){
+                self.picIdStr = [NSString stringWithFormat:@"%@",idStr];
+            }else{
+                self.picIdStr = [NSString stringWithFormat:@"%@,%@",self.picIdStr,idStr];
+            }
+            self.picIdsArr = [[self.picIdStr componentsSeparatedByString:@","] mutableCopy];
+        }
+        
+        BFLog(@"ids =====%@", self.picIdStr);
+        if (isSuccess) {
+            [BFUtils showAlertController:0 title:@"" message:@"图片上传成功"];
+        }else{
+            [uploadMsg appendString:@"张图片上传失败"];
+            [BFUtils showAlertController:0 title:@"" message:uploadMsg];
+        }
+    }];
+    
+}
+
+- (void)delectPhotoWhitIndex:(NSInteger)index{
+    BFLog(@"delectPhotoWhitI===%@", self.picIdStr);
+    [self.photoArr removeObjectAtIndex:index];
+    [self.picIdsArr removeObjectAtIndex:index];
+    self.picIdStr = [self appendPicIdsWithArr:self.picIdsArr];
+    BFLog(@"picIdStr===%@", self.picIdStr);
+}
+
+
+- (void)clearFoodInfo{
+    [self.textCell textViewPlacehodel];
+    [self.photoArr removeAllObjects];
+    self.picIdStr = @"";
+    self.photoAsset = @[];
+    [self.upImageVc updtaCollectionViewWithPhotoArr:self.photoArr];
+}
+
+
+- (void)dealWithPicIds{
+    if (self.foodModel && ![self.foodModel.pic_list isEqualToString:@""]) {
+        NSString *picidsTr;
+        if ([self.picIdStr isEqualToString:@""]) {
+            picidsTr = self.foodModel.pic_list;
+        }else{
+            picidsTr = [NSString stringWithFormat:@"%@,%@",self.foodModel.pic_list,self.picIdStr];
+        }
+        self.picIdStr = picidsTr;
+        BFLog(@"mvmvmvmvmvmvvm===%@",self.picIdStr);
+    }
+    self.picIdsArr = [[self.picIdStr componentsSeparatedByString:@","] mutableCopy];
+}
+
+
+
+// 将要上传的图片id拼接成字符串
+- (NSString *)appendPicIdsWithArr:(NSArray *)picArr{
+    NSMutableString *str = [NSMutableString string];
+    for (NSInteger count = 0; count < picArr.count; count ++) {
+        NSString *picid = picArr[count];
+        if (count == picArr.count -1) {
+            [str appendString:[NSString stringWithFormat:@"%@",picid]];
+        }else{
+            [str appendString:[NSString stringWithFormat:@"%@,",picid]];
+        }
+    }
+    return str;
+}
+
+- (void)topCellDidSelectFoodClass:(NSMutableArray *)foodClassArr{
+    [self.view endEditing:YES];
+    self.foodClassArr = foodClassArr;
+    _isEdit = YES;
+}
+
+
+- (void)submitAction{
+    
+    [self.view endEditing:YES];
+    NSString *foodName = self.topCell.foodNameTf.text;
+    NSString *foodPrice = self.topCell.priceTf.text;
+    NSString *foodId = @"";
+    if (self.foodVcType == foodDetailChange) {
+        foodId = self.foodModel.foodId;
+    }
+    
+    NSString *foodDetail = self.textCell.textView.text;
+    self.picIdStr = [self appendPicIdsWithArr:self.picIdsArr];
+    NSString *typeIds = [self chaeckFormatDataAndReturnTypeIds];
+    if ([typeIds isEqualToString:@""]) {
+        return;
+    }
+    
+    BFLog(@"model_pic_ids === %@, after == %@   foodTypeIds == %@", self.foodModel.pic_list,self.picIdStr,typeIds);
+    if (!self.picIdStr || [self.picIdStr isEqualToString:@""]) {
+        [BFUtils showAlertController:0 title:@"" message:@"请上传菜品图片"];
+        return;
+    }
+    
+    [BFUtils showProgressHUDWithTitle:@"保存中..." inView:self.view animated:YES];
+    [[BFFoodServices alloc] saveFoodInfoWithFoodName:foodName foodDescription:foodDetail foodPrice:foodPrice foodId:foodId typeIds:typeIds picLists:self.picIdStr SuccessBlock:^(id result) {
+        [BFUtils hideProgressHUDInView:self.view delegate:self animated:YES afterDelay:0];
+        [BFUtils showAlertController:0 title:@"" message:@"菜品信息保存成功"];
+        if (self.foodVcType == foodDetailNew) {
+            [self clearFoodInfo];
+        }
+        if ([self.delegate respondsToSelector:@selector(updataTabbleViewData)]) {
+            [self.delegate updataTabbleViewData];
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:updateFoodListNotification object:nil];
+        if (self.foodVcType != foodDetailNew) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }
+
+    }errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+        [BFUtils hideProgressHUDInView:self.view delegate:self animated:YES afterDelay:0];
+        [BFUtils showAlertController:0 title:@"" message:errorMessage];
+        
+    } Failure:^(NSError *error) {
+        [BFUtils hideProgressHUDInView:self.view delegate:self animated:YES afterDelay:0];
+        [BFUtils showAlertController:0 title:@"" message:@"网络错误"];
+        
+    }];
+    
+}
+
+- (void)changeInfoAction:(UIButton *)sender{
+    
+    [self.view endEditing:YES];
+    NSMutableAttributedString *buttonTitle = [[NSMutableAttributedString alloc] initWithString:@"提示"];
+    [buttonTitle addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:BF_FONTSIZE_a2] range:NSMakeRange(0, [[buttonTitle string] length])];
+    [buttonTitle addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, [[buttonTitle string] length])];
+    
+    UIAlertController *alertVc = [UIAlertController alertControllerWithTitle:@"" message:@"确定需要删除吗？" preferredStyle:UIAlertControllerStyleAlert];
+    [alertVc setValue:buttonTitle forKey:@"attributedTitle"];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        [alertVc dismissViewControllerAnimated:YES completion:nil];
+    }];
+    UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        [BFUtils showProgressHUDWithTitle:@"保存中..." inView:self.view animated:YES];
+        [[BFFoodServices alloc] delectFoodWithFoodId:self.foodModel.foodId SuccessBlock:^(id result) {
+            [BFUtils hideProgressHUDInView:self.view delegate:self animated:YES afterDelay:0];
+            [BFUtils showAlertController:0 title:@"" message:@"删除成功"];
+            if ([self.delegate respondsToSelector:@selector(updataTabbleViewData)]) {
+                [self.delegate updataTabbleViewData];
+            }
+            [[NSNotificationCenter defaultCenter] postNotificationName:updateFoodListNotification object:nil];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+        }errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+            [BFUtils hideProgressHUDInView:self.view delegate:self animated:YES afterDelay:0];
+            [BFUtils showAlertController:0 title:@"" message:errorMessage];
+            
+        } Failure:^(NSError *error) {
+            [BFUtils hideProgressHUDInView:self.view delegate:self animated:YES afterDelay:0];
+            [BFUtils showAlertController:0 title:@"" message:@"网络错误"];
+        }];
+
+        
+        [alertVc dismissViewControllerAnimated:YES completion:nil];
+    }];
+    [cancelAction setValue:[UIColor blackColor] forKey:@"_titleTextColor"];
+    [okAction setValue:[UIColor blackColor] forKey:@"_titleTextColor"];
+    [alertVc addAction:cancelAction];
+    [alertVc addAction:okAction];
+    [self presentViewController:alertVc animated:YES completion:nil];
+}
+
+
+- (NSString *)chaeckFormatDataAndReturnTypeIds{
+    
+    NSMutableString *typeIds = [NSMutableString stringWithString:@""];
+    for (NSInteger count = 0;count < self.foodClassArr.count; count ++) {
+        BFFoodClassModel *classModel = self.foodClassArr[count];
+        if (classModel.isSelect) {
+            if (count == self.foodClassArr.count - 1) {
+                [typeIds appendFormat:@"%@",classModel.foodClassId];
+            }else{
+                [typeIds appendFormat:@"%@,",classModel.foodClassId];
+            }
+        }
+    }
+    if ([typeIds isEqualToString:@""]) {
+        [BFUtils showAlertController:0 title:@"" message:@"请选择菜品区域"];
+        return @"";
+    }
+    return typeIds;
+    
+}
+
+#pragma mark -- UITextFieldDelegate
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    
+    _isEdit = YES;
+}
+#pragma mark -- UITextViewDelegate
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+    _isEdit = YES;
+}
+
+- (void)dealloc {
+    
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
+
+@end

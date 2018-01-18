@@ -1,0 +1,91 @@
+//
+//  BFPrintManger.m
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/6/20.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import "BFPrintManger.h"
+#import "BFOrderServices.h"
+#import "LXBCookingdetailModel.h"
+#import "BFPrintOrderModel.h"
+
+
+@implementation BFPrintManger
+
+- (instancetype)init{
+    if (self = [super init]) {
+        
+    }
+    return self;
+}
+
+
+- (void)printMessageWithOrderId:(NSString *)orderId printIp:(NSString *)printIp success:(void(^)(NSString *result))successBolck failue:(void(^)(NSString *errorStr))fialueBlock{
+    
+    [[BFOrderServices alloc] getPrintInfoWithOrderId:orderId SuccessBlock:^(id result) {
+        BFPrintOrderModel *model = (BFPrintOrderModel *)result;
+        NSMutableArray *passArr = [NSMutableArray array];
+        NSMutableArray *printArr = [NSMutableArray array];
+
+        for (LXBCookingdetailModel *foodModel  in model.dishesArr) {
+            NSDictionary *foodDic = @{@"Name":foodModel.name,@"Seat":[NSString stringWithFormat:@"%@",foodModel.quantity]};
+            [passArr addObject:foodDic];
+            
+            CGFloat total = [foodModel.quantity integerValue] * [foodModel.price floatValue];
+            NSDictionary *dic = @{@"Name":foodModel.name,@"Price":foodModel.price,@"Number":foodModel.quantity,@"Sum":[NSString stringWithFormat:@"%.2f",total]};
+            [printArr addObject:dic];
+        }
+        NSDictionary *foodDic = @{@"Name":@"餐位",@"Seat":[NSString stringWithFormat:@"%@",model.number]};
+        [passArr addObject:foodDic];
+        [[BFOrderServices alloc] passMenuWithTableNum:[model.deskDic objectForKey:@"name"] printIp:printIp time:model.payTime orderNum:model.out_trade_no passOrderArr:passArr remark:model.remark SuccessBlock:^(id result) {
+//            [BFUtils showAlertController:0 title:@"" message:@"订单已送至厨房"];
+        } errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+            
+        } Failure:^(NSError *error) {
+            
+        }];
+
+    
+
+        if (model.tableware) {
+            LXBCookingdetailModel *cookingModel = [[LXBCookingdetailModel alloc] init];
+            cookingModel.name = @"餐位费";
+            NSInteger tableware = [model.tableware integerValue];
+            CGFloat tableFee = [model.tableFee floatValue];
+            if (tableFee == 0 || tableware == 0) {
+                cookingModel.price = [NSString stringWithFormat:@"0.0"];
+            }else {
+                
+                CGFloat price = tableFee / tableware;
+                cookingModel.price = [NSString stringWithFormat:@"%.2f",price];
+            }
+            CGFloat total = [model.number integerValue] * [cookingModel.price floatValue];
+            NSDictionary *foodDic = @{@"Name":cookingModel.name,@"Price":cookingModel.price,@"Number":model.number,@"Sum":[NSString stringWithFormat:@"%.2f",total]};
+            [printArr addObject:foodDic];
+        } else {
+        }
+        [[BFOrderServices alloc] printOrderTableNum:[model.deskDic objectForKey:@"name"] printIp:printIp waiterName:[BFUserSignelton shareBFUserSignelton].truename orderNum:model.out_trade_no time:model.payTime personNum:model.number orderDetail:printArr coupons:@"0" remark:model.remark SuccessBlock:^(id result) {
+            //        [BFUtils showAlertController:0 title:@"" message:@"已打印好订单"];
+        } errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+            
+        } Failure:^(NSError *error) {
+            
+        }];
+        
+        
+    } errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+        
+    } Failure:^(NSError *error) {
+        
+    }];
+}
+
+
+
+
+@end
+
+
+

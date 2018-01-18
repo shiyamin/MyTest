@@ -1,0 +1,19 @@
+//
+//  BFPrintManger.h
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/6/20.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@interface BFPrintManger : NSObject
+
+- (void)printMessageWithOrderId:(NSString *)orderId printIp:(NSString *)printIp success:(void(^)(NSString *result))successBolck failue:(void(^)(NSString *errorStr))fialueBlock;
+
+
+- (void)printPassOrder:(NSString *)orderId printIp:(NSString *)printIp success:(void(^)(NSString *result))successBolck failue:(void(^)(NSString *errorStr))fialueBlock;
+
+
+@end

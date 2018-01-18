@@ -1,0 +1,178 @@
+//
+//  BFShopServices.h
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/13.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import "BFBaseServices.h"
+
+@interface BFShopServices : BFBaseServices
+
+
+
+/**
+ 获取商铺详情
+
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)getShopDetailInfoWithSuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+/**
+ 修改店面信息
+ 
+ @param merchaName 商户名称
+ @param merChaDesStr 商户描述
+ @param shopNameStr 店面名字
+ @param logoId logo
+ @param addressStr 地址
+ @param tel 电话
+ @param avgStr 平均消费
+ @param openStr 营业时间
+ @param tableFee 餐位费
+ @param shopDes 店面描述
+ @param picIds  图片id
+ @param tagStr  标签
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)postShopDetailInfoWithMerchaName:(NSString *)merchaName merchaDescripment:(NSString *)merChaDesStr shopName:(NSString *)shopNameStr logoId:(NSString *)logoId address:(NSString *)addressStr tel:(NSString *)tel personAvgPrice:(NSString *)avgStr opentime:(NSString *)openStr tableFee:(NSString *)tableFee shopDescripment:(NSString *)shopDes picIds:(NSString *)picIds tagStr:(NSString *)tagStr payType:(NSString *)payType SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+/**
+ 获取区域列表
+
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)getDeskAreaInfoWithSuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+
+/**
+ 删除区域
+
+ @param areaId 区域的id
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)delectDeskAreaWithAreaId:(NSString *)areaId SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+
+/**
+ 修改区域信息
+
+ @param areaId 区域id
+ @param areaName 区域名字
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)saveAreaInfoToServicesWithAreaId:(NSString *)areaId areaName:(NSString *)areaName SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+/**
+ 获取餐桌列表
+
+ @param deskName 餐桌的名字
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)getDeskListDetailWithDeskName:(NSString *)deskName SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+
+/**
+ 删除餐桌
+
+ @param deskId 餐桌id
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)delectDeskWithDeskId:(NSString *)deskId SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+/**
+ 修改餐桌信息
+
+ @param nameStr 餐桌名字
+ @param numStr 餐桌人数
+ @param areaid 区域id
+ @param typeStr 类型id
+ @param deskid 餐桌id
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)saveDeskInfoWithDeskName:(NSString *)nameStr personNum:(NSString *)numStr areaId:(NSString *)areaid deskType:(NSString *)typeStr deskId:(NSString *)deskid SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+#pragma mark -- 消息接口
+
+/**
+ 获取消息列表
+ 
+ @param messageType 消息id
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)getMessageListInfoWithMessageType:(NSString *)messageType SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+/**
+ 获取消息列表
+ 
+ @param messageTitle 消息标题
+ @param messageDescription 消息内容
+ @param picList 图片列表
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)saveMessageInfoWithMessageTitle:(NSString *)messageTitle messageDescription:(NSString *)messageDescription picList:(NSString *)picList SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+
+/**
+ 清台
+
+ @param deskId 餐桌id
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)deskClearWtihDeskId:(NSString *)deskId SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+/**
+ 处理呼叫
+ 
+ @param messageId 消息id
+ @param success 成功回调
+ @param errCode 错误信息回调
+ @param failure 失败回调
+ */
+- (void)confirmCallMessageWithMessageId:(NSString *)messageId SuccessBlock:(RequestSuccessBlock)success errorCode:(RequestErrorCodeBlock)errCode Failure:(RequestFailureBlock)failure;
+
+
+
+@end

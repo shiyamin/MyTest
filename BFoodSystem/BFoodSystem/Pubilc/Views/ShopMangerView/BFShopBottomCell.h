@@ -1,0 +1,58 @@
+//
+//  BFShopBottomCell.h
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/17.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import <UIKit/UIKit.h>
+
+
+#define BFShopBottomCellIndertifier   @"BFShopBottomCellIndertifier"
+
+
+@protocol BFShopBottomCellDelegate <NSObject>
+- (void)payBtnAction:(UIButton *)btn payType:(NSString *)typeStr;
+
+
+@end
+
+
+
+@interface BFShopBottomCell : UITableViewCell
+
+
+@property (weak, nonatomic) IBOutlet UIButton *payLeftBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *payRightBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *leftBtn;
+
+@property (weak, nonatomic) IBOutlet UIButton *rightBtn;
+
+@property (weak, nonatomic) IBOutlet UIView *backGrView;
+
+@property (weak, nonatomic) IBOutlet UITextView *textView;
+
+@property (weak, nonatomic) IBOutlet UIView *mealView;
+//餐位费
+@property (weak, nonatomic) IBOutlet UILabel *mealFreeLabel;
+
+@property (weak, nonatomic) IBOutlet UIView *tagView;
+
+@property (weak, nonatomic) IBOutlet UIView *tagsmallView;
+
+@property (nonatomic, strong) NSArray *tagListArr;
+//用餐的输入的内容.
+
+//餐位费
+@property (weak, nonatomic) IBOutlet UITextField *mealFreeTF;
+
+@property (nonatomic, assign) id <BFShopBottomCellDelegate> delegate;
+
+- (void)configTextView:(NSString *)shopDes mealFee:(NSString *)mealFee tagArr:(NSArray *)tagArr andBtnStauts:(NSString *)type payStatus:(NSString *)payStatus;
+
+
+
+@end

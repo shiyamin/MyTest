@@ -1,0 +1,318 @@
+//
+//  BFHomeViewController.m
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/13.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import "BFHomeViewController.h"
+#import "BFLoginServices.h"
+#import "BFHomeTopView.h"
+#import "BFHomeMangerCollectionCell.h"
+#import "BFShopMangerController.h"
+#import "BFLoginServices.h"
+#import "BFQueryServices.h"
+#import "BFQueryDailyModel.h"
+#import "BFHomeTopView.h"
+
+
+@interface BFHomeViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,BFHomeTopViewDelegate>
+
+@property(nonatomic, strong)UICollectionView *myCollectionView;
+@property(nonatomic, strong)UICollectionViewFlowLayout *layout;
+@property(nonatomic, strong)NSMutableArray *dataArr;
+
+@property (nonatomic, strong)BFHomeTopView *topView;
+
+@end
+
+@implementation BFHomeViewController
+
+- (NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
+
+- (UICollectionViewFlowLayout *)layout{
+    if (!_layout) {
+        _layout = [[UICollectionViewFlowLayout alloc] init];
+    }
+    return _layout;
+}
+
+
+- (UICollectionView *)myCollectionView{
+    if (!_myCollectionView) {
+        CGFloat collViewY = 260;
+        if (IS_IPhone5) {
+            collViewY = 245;
+        }
+        CGFloat collViewH = SCREEN_WIDTH - 130;
+        if (IS_IPhone6plus) {
+            collViewH = SCREEN_WIDTH-140;
+        }
+        _myCollectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(15, collViewY, SCREEN_WIDTH-30, collViewH) collectionViewLayout:self.layout];
+        _myCollectionView.delegate = self;
+        _myCollectionView.dataSource = self;
+        _myCollectionView.layer.cornerRadius = 5.0f;
+        _myCollectionView.layer.borderWidth = 1.0f;
+        _myCollectionView.layer.borderColor = [UIColor colorWithHex:@"#59dbaf"].CGColor;
+        _myCollectionView.clipsToBounds = YES;
+        _myCollectionView.backgroundColor = [UIColor whiteColor];
+    }
+    return _myCollectionView;
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.view.backgroundColor = [UIColor colorWithHex:@"#f5f5f5"];
+//    [self getData];
+    [self config];
+    [self initialSubviews];
+    [self getShopSaleInfo];
+
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [self refreshHeadViewData];
+}
+
+//- (void)getData {
+//    UILocalNotification *_localNotification=[[UILocalNotification alloc] init];
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0), ^{
+//        
+//        while (TRUE) {
+//            
+//            [NSThread sleepForTimeInterval:10*60];
+//            
+//            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+//            
+//            [self refreshHeadViewData];
+//            
+//            [[UIApplication sharedApplication] scheduleLocalNotification:_localNotification];
+//            
+//        };
+//        
+//        
+//    });
+//}
+
+//类别
+- (void)config{
+    self.title = [BFUserSignelton shareBFUserSignelton].merchant_name;
+    
+    NSMutableDictionary *dic1 = [@{@"icon":@"icon_dianmian",@"title":@"店面管理",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFShopMangerController"} mutableCopy];
+    NSMutableDictionary *dic2 = [@{@"icon":@"icon_caipin",@"title":@"菜品管理",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFFoodMangerController"}mutableCopy];
+    NSMutableDictionary *dic3 = [@{@"icon":@"icon_cantai",@"title":@"餐台管理",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFDeskAreaController"}mutableCopy];
+    NSMutableDictionary *dic4 = [@{@"icon":@"icon_dianyuan",@"title":@"店员管理",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFWaiterMangerController"}mutableCopy];
+    NSMutableDictionary *dic5 = [@{@"icon":@"sy_tjbb_icon",@"title":@"统计报表",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFQueryTypeController"}mutableCopy];
+//    NSMutableDictionary *dic6 = [@{@"icon":@"sy_wdqb_icon",@"title":@"我的钱包",@"budge":@"",@"pushSegue":@"agentID",@"vcClass":@"BFWalletController"} mutableCopy];
+   
+    NSMutableDictionary *dic6 = [@{@"icon":@"icon_kehu",@"title":@"客户管理",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFClientsManagerController"}mutableCopy];
+    NSMutableDictionary *dic7 = [@{@"icon":@"icon_xiaoxi",@"title":@"消息管理",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFNewsCenterController"}mutableCopy];
+    NSMutableDictionary *dic8 = [@{@"icon":@"sy_grzx_icon",@"title":@"个人中心",@"budge":@"",@"pushSegue":@"",@"vcClass":@"BFPersonCenterController"}mutableCopy];
+    
+    NSMutableDictionary *dic9 = [@{@"icon":@"icon_renzheng",@"title":@"商家认证",@"budge":@"",@"pushSegue":@"agentID",@"vcClass":@"BusnessAuthorViewController"} mutableCopy];
+    
+    self.dataArr = [NSMutableArray arrayWithObjects:dic1,dic2,dic3,dic4,dic5,dic6,dic7,dic8,dic9, nil];
+    
+}
+
+- (void)initialSubviews{
+    
+    UIScrollView *scroView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
+    CGFloat scroHeight = SCREEN_HEIGHT;
+    if (scroHeight == 480) {
+        scroHeight = 600;
+    }
+    scroView.contentSize = CGSizeMake(SCREEN_WIDTH, scroHeight);
+    scroView.showsVerticalScrollIndicator = NO;
+    scroView.showsHorizontalScrollIndicator = NO;
+    [self.view addSubview:scroView];
+    
+    self.topView = [[[NSBundle mainBundle] loadNibNamed:@"BFHomeTopView" owner:nil options:nil] lastObject];
+    self.topView.delegate = self;
+    self.topView.leftLable.text = [BFUserSignelton shareBFUserSignelton].truename;
+    self.topView.rightLable.text = [self getTodayStr];
+    
+    CGFloat top = 20;
+    if (IS_IPhone5) {
+        top = 10;
+    }
+    self.topView.frame = CGRectMake(0, top, SCREEN_WIDTH, 200);
+    [scroView addSubview:self.topView];
+
+//    UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg_img"]];
+//    img.frame = _topView.frame;
+//    [self.topView addSubview:img];
+    
+//    [self.topView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.equalTo(self.view);
+//        make.top.equalTo(self.view.mas_top).offset(top);
+//        make.height.mas_equalTo(200);
+//    }];
+    
+    UILabel *mangerTitleLable = [[UILabel alloc] init];
+    mangerTitleLable.font = [UIFont systemFontOfSize:16];
+    mangerTitleLable.textColor = [UIColor colorWithHex:@"#3c3e48"];
+    mangerTitleLable.text = @"设备管理";
+    mangerTitleLable.textAlignment = NSTextAlignmentCenter;
+    [scroView addSubview:mangerTitleLable];
+    mangerTitleLable.frame = CGRectMake(0, self.topView.frame.origin.y + self.topView.frame.size.height, SCREEN_WIDTH, 20);
+//    [mangerTitleLable mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.equalTo(self.view);
+//        make.top.equalTo(self.topView.mas_bottom).offset(10);
+//        make.height.mas_equalTo(20);
+//    }];
+    
+    [scroView addSubview:self.myCollectionView];
+    [self.myCollectionView registerNib:[UINib nibWithNibName:@"BFHomeMangerCollectionCell" bundle:nil] forCellWithReuseIdentifier:BFHomeMangerCollectionCellIndetifier];
+    
+    //退出按钮
+    UIButton *logoutBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [logoutBtn setTitle:@"退出" forState:UIControlStateNormal];
+    [logoutBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [logoutBtn setBackgroundColor:[UIColor colorWithHex:@"#e52e25"]];
+    logoutBtn.layer.cornerRadius = 5.0f;
+    logoutBtn.clipsToBounds = YES;
+    [logoutBtn addTarget:self action:@selector(lougoutAction:) forControlEvents:UIControlEventTouchUpInside];
+    [scroView addSubview:logoutBtn];
+    
+    CGFloat bottom = -20;
+    if(IS_IPhone5){
+        bottom = -10;
+    }
+    logoutBtn.frame = CGRectMake(15, self.myCollectionView.frame.origin.y + self.myCollectionView.frame.size.height + 15, SCREEN_WIDTH - 30, 40);
+//    [logoutBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.view).offset(15);
+//        make.bottom.equalTo(self.view).offset(bottom);
+//        make.right.equalTo(self.view).offset(-15);
+//        make.height.mas_equalTo(40);
+//    }];
+    
+}
+
+//获取当前时间
+- (NSString *)getTodayStr{
+    NSDateFormatter *formater = [[NSDateFormatter alloc] init];
+    [formater setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    [formater setDateFormat:@"YYYY-MM-dd"];
+    NSDate *nowDate = [NSDate date];
+    NSString *nowStr = [formater stringFromDate:nowDate];
+    return nowStr;
+}
+
+//数据刷新
+- (void)refreshHeadViewData{
+    
+//    [BFUtils showProgressHUDWithTitle:@"获取店铺流水数据中..." inView:self.view animated:YES];
+    [[BFQueryServices alloc] updateStatusInfoWithSuccessBlock:^(id result) {
+        [BFUtils hideProgressHUDInView:self.view delegate:nil animated:YES afterDelay:0];
+        [self getShopSaleInfo];
+
+    } errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+        [BFUtils hideProgressHUDInView:self.view delegate:nil animated:YES afterDelay:0];
+        [BFUtils showAlertController:0 title:@"" message:errorMessage];
+    } Failure:^(NSError *error) {
+        [BFUtils hideProgressHUDInView:self.view delegate:nil animated:YES afterDelay:0];
+//        [BFUtils showAlertController:0 title:@"" message:@"网络错误"];
+    }];
+
+}
+
+
+- (void)getShopSaleInfo{
+    [[BFQueryServices alloc] queryStatisticsDailyWithStartTime:[self getTodayStr] endTime:[self getTodayStr] SuccessBlock:^(id result) {
+        NSArray *dailyModelArr = (NSArray *)result;
+        BFQueryDailyModel *model = dailyModelArr.firstObject;
+        [self.topView configTopInfoWith:model];
+        
+        BFLog(@"result=====%@", result);
+    } errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+        [BFUtils showAlertController:0 title:@"" message:errorMessage];
+    } Failure:^(NSError *error) {
+        [BFUtils showAlertController:0 title:@"" message:@"网络错误"];
+    }];
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    return self.dataArr.count;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake((SCREEN_WIDTH-30)/3, (SCREEN_WIDTH)/3 -44);
+}
+
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
+    return 1;
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+    return 0;
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    BFHomeMangerCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:BFHomeMangerCollectionCellIndetifier forIndexPath:indexPath];
+    NSDictionary *dic = self.dataArr[indexPath.row];
+    
+   [cell configMangerCellWithImageName:[dic objectForKey:@"icon"] titleName:[dic objectForKey:@"title"]];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dic = self.dataArr[indexPath.row];
+    NSString *vcClass = [dic objectForKey:@"vcClass"];
+    if (![vcClass isEqualToString:@""]) {
+        Class secClass = NSClassFromString(vcClass);
+        UIViewController *secVc = [[secClass alloc] init];
+        [self.navigationController pushViewController:secVc animated:YES];
+        return;
+    }
+
+}
+
+
+
+
+
+- (void)lougoutAction:(UIButton *)sender{
+    
+    [[BFUserSignelton shareBFUserSignelton] logoutClearUserInfo];
+    
+    [[BFLoginServices alloc] logoutWithSuccessBlock:^(id result) {
+        
+    } errorCode:^(NSInteger errorCode, NSString *errorMessage) {
+
+    } Failure:^(NSError *error) {
+
+    }];
+}
+
+
+
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

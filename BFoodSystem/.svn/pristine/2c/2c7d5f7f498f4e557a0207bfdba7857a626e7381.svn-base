@@ -1,0 +1,324 @@
+//
+//  BFSubTableView.m
+//  BFoodSystem
+//
+//  Created by binbin on 2017/4/26.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import "BFSubTableView.h"
+#import "LXBOrder_listModel.h"
+#import "LXBCookingdetailModel.h"
+#import "BFExpenseInfoTableViewCell.h"
+@interface BFSubTableView ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) NSMutableArray *orderArr;
+@property (nonatomic, strong) NSMutableArray  *cancleArr;
+@property (nonatomic, strong) NSMutableArray *allArr;
+@property (nonatomic, strong) NSArray *headDataArr;
+@property (nonatomic, strong) UIView *footerV;
+
+@end
+
+@implementation BFSubTableView
+
+#pragma mark - 数据的赋值
+- (void)setDataArr:(NSArray *)dataArr {
+    _dataArr = dataArr;
+    [self.orderArr removeAllObjects];
+    [self.cancleArr removeAllObjects];
+    
+    for (LXBOrder_listModel *model in dataArr) {
+        NSArray *dishesArr = model.dishes_list;
+        NSArray *cancleArr = model.cancel_list;
+        for (LXBCookingdetailModel *Cookmodel in dishesArr) {
+            
+            [self.orderArr addObject:Cookmodel];
+        }
+        for (LXBCookingdetailModel *Cookmodel in cancleArr) {
+            [self.cancleArr addObject:Cookmodel];
+        }
+    }
+    // 当 tableware 为零时候，不显示餐位费
+    LXBOrder_listModel *model = [dataArr lastObject];
+    if (model.tableware) {
+        [self.orderArr addObject:self.cookingModel];
+    } else {
+    }
+    [self.allArr addObject:self.orderArr];
+    [self.allArr addObject:self.cancleArr];
+}
+
+- (void)setGoodsAmount:(CGFloat)goodsAmount
+{
+    _goodsAmount = goodsAmount;
+    [self reloadData];
+}
+- (NSArray *)headDataArr
+{
+    if (_headDataArr == nil) {
+        _headDataArr = @[
+                         @{
+                             @"image":@"yixiaofei",
+                             @"title":@"已消费",
+                             @"titleColor":BF_COLOR_B10
+                             },
+                         @{
+                             @"image":@"yituidan",
+                             @"title":@"已退单",
+                             @"titleColor":BF_COLOR_B11
+                             }
+                         ];
+    }
+    return _headDataArr;
+}
+- (UIView *)footerV
+{
+    if (!_footerV) {
+        _footerV = [UIView new];
+        UIView *lineView = [[UIView alloc] init];
+        lineView.frame = CGRectMake(10, 9, SCREEN_WIDTH-40, 1);
+        //深灰色  L19;
+        lineView.backgroundColor = [UIColor colorWithHex:BF_COLOR_L16];
+        [_footerV addSubview:lineView];
+    }
+    return _footerV;
+}
+- (NSMutableArray *)orderArr
+{
+    if (_orderArr == nil) {
+        _orderArr = [NSMutableArray array];
+    }
+    return _orderArr;
+}
+- (NSMutableArray *)cancleArr
+{
+    if (_cancleArr == nil) {
+        _cancleArr = [NSMutableArray array];
+    }
+    return _cancleArr;
+}
+- (NSMutableArray *)allArr
+{
+    if (_allArr == nil) {
+        _allArr = [NSMutableArray array];
+    }
+    return _allArr;
+}
+
+- (instancetype)initWithFrame:(CGRect)frame style:(UITableViewStyle)style
+{
+    if (self = [super initWithFrame:frame style:style]) {
+        self.delegate = self;
+        self.dataSource = self;
+        self.separatorStyle = UITableViewCellSeparatorStyleNone;
+
+    }
+    return self;
+}
+
+- (void)lxbCreationView {
+    UIView *sub = self;
+    sub.backgroundColor = [UIColor whiteColor];
+    self.layer.masksToBounds = YES;
+    self.layer.cornerRadius = 4.0f;
+    self.layer.borderWidth = 1.0f;
+    self.layer.borderColor = [UIColor colorWithHex:BF_COLOR_L19].CGColor;
+    [self mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(sub).insets(UIEdgeInsetsZero);
+    }];
+}
+#pragma mark - delegate  dataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return self.allArr.count;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    if (section == 0) {
+        return self.orderArr.count;
+    }else {
+        return self.cancleArr.count;
+    }
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    BFExpenseInfoTableViewCell *cell = [BFExpenseInfoTableViewCell cellWithTableView:tableView];
+    cell.selectionStyle  = UITableViewCellSelectionStyleNone;
+    if (indexPath.section == 0) {
+        cell.cookingModel = self.orderArr[indexPath.row];
+    }
+    if (indexPath.section == 1) {
+        cell.cookingModel = self.cancleArr[indexPath.row];
+    }
+    return cell;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return KLXBExpensedMoneyCellHeight;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    LXBExpensedHeader *header = [LXBExpensedHeader headerInitialize:tableView];
+    NSDictionary *dic = self.headDataArr[section];
+    [header setTestDataFunction:dic[@"image"] title:dic[@"title"] withTitleColor:dic[@"titleColor"]];
+    return header;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return KLXBExpensedHeaderCellHeight;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        return self.footerV;
+    }else {
+        LXBConsumptionFooterView *footerView = [LXBConsumptionFooterView footerInitailize:tableView];
+        footerView.totalMoney = _goodsAmount;
+        return footerView;
+    }
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    if (section == 0) {
+        
+        return 1;
+    }else {
+        
+        return 50.0;
+    }
+    
+}
+
+
+@end
+
+//尾部金额合计视图
+@interface LXBConsumptionFooterView ()
+
+@end
+
+@implementation LXBConsumptionFooterView
+
+
++ (instancetype)footerInitailize:(UITableView *)tableView
+{
+    static NSString *BFConsumptionFooterViewId = @"BFConsumptionFooterViewId";
+    LXBConsumptionFooterView *footer = [tableView dequeueReusableHeaderFooterViewWithIdentifier:BFConsumptionFooterViewId];
+    if (footer == nil) {
+        footer = [[LXBConsumptionFooterView alloc] initWithReuseIdentifier:BFConsumptionFooterViewId];
+    }
+    return footer;
+}
+
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier
+{
+    if (self = [super initWithReuseIdentifier:reuseIdentifier]) {
+        [self creationViewFunction];
+    }
+    return self;
+}
+
+- (void)creationViewFunction {
+    self.contentView.backgroundColor = [UIColor colorWithHex:BF_COLOR_B1];
+    UIView *sub = [[UIView alloc] init];
+    [self.contentView addSubview:sub];
+    [sub mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView);
+        make.right.equalTo(self.contentView);
+        make.top.equalTo(self.contentView.mas_top).with.offset(10);
+        make.bottom.equalTo(self.contentView);
+    }];
+    sub.backgroundColor = [UIColor whiteColor];
+//    sub.layer.masksToBounds = YES;
+//    sub.layer.cornerRadius = 5.0f;
+//    sub.layer.borderWidth = 1.0f;
+//    sub.layer.borderColor = [UIColor colorWithHex:BF_COLOR_L19].CGColor;
+    
+
+    UILabel *label = [UILabel new];
+    label.font = [UIFont systemFontOfSize:16];
+    label.textColor = [UIColor colorWithHex:BF_COLOR_B4];
+    label.text = @"金额合计";
+    [sub addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(sub);
+        make.left.equalTo(sub).offset(10);
+        make.height.mas_equalTo(18);
+    }];
+    
+    _totalMoneyLabel = [[UILabel alloc] init];
+    _totalMoneyLabel.font = [UIFont systemFontOfSize:16];
+    _totalMoneyLabel.textColor = [UIColor colorWithHex:BF_COLOR_B11];
+    [sub addSubview:_totalMoneyLabel];
+    [_totalMoneyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(sub);
+        make.right.equalTo(sub).offset(-10);
+        make.height.mas_equalTo(18);
+    }];
+    
+    
+}
+
+- (void)setTotalMoney:(CGFloat)totalMoney
+{
+    _totalMoney = totalMoney;
+    _totalMoneyLabel.text = [NSString stringWithFormat:@"%.2f元",totalMoney];
+}
+
+@end
+
+
+@interface LXBExpensedHeader ()
+@property (nonatomic, weak) UIImageView *leftImage;
+@property (nonatomic, weak) UILabel *titelLab;
+@end
+@implementation LXBExpensedHeader
+
+//headView 注册的方法  外面不需要再进行注册
++ (instancetype)headerInitialize:(UITableView *)tableView {
+    static NSString *headerID = @"LXBExpensedHeader";
+    LXBExpensedHeader *header = [tableView dequeueReusableHeaderFooterViewWithIdentifier:headerID];
+    if (header == nil) {
+        header = [[LXBExpensedHeader alloc]initWithReuseIdentifier:headerID];
+    }
+    return header;
+}
+- (instancetype)initWithReuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithReuseIdentifier:reuseIdentifier];
+    if (self) {
+        [self lxbCreationView];
+    }
+    return self;
+}
+- (void)lxbCreationView {
+    UIView *sub = self.contentView;
+    sub.backgroundColor = [UIColor whiteColor];
+    
+    UIImageView *leftImagView = [UIImageView new];
+    _leftImage = leftImagView;
+    [sub addSubview:leftImagView];
+    [leftImagView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(sub);
+        make.left.equalTo(sub).offset(10);
+        make.width.height.mas_equalTo(18);
+        
+    }];
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.font = [UIFont systemFontOfSize:BF_FONTSIZE_a3];
+    _titelLab = titleLabel;
+    [sub addSubview:titleLabel];
+    [_titelLab mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerY.equalTo(sub);
+        make.left.equalTo(_leftImage .mas_right).offset(6);
+        make.height.mas_equalTo(18);
+        
+    }];
+}
+- (void)setTestDataFunction:(NSString *)imagName title:(NSString *)title withTitleColor:(NSString *)titleColor
+{
+    _leftImage.image = [UIImage imageNamed:imagName];
+    _titelLab.text = title;
+    _titelLab.textColor = [UIColor colorWithHex:titleColor];
+}
+
+@end
+
+

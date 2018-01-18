@@ -1,0 +1,36 @@
+//
+//  BFRegistController.h
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/14.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import "BFBaseViewController.h"
+
+@class BFLoginViewController;
+
+@interface BFRegistController : BFBaseViewController
+
+
+@property (weak, nonatomic) IBOutlet UILabel *titleLable;
+
+@property (weak, nonatomic) IBOutlet UITextField *userNameTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *smsCodeTf;
+
+@property (weak, nonatomic) IBOutlet UIButton *sendCodeBtn;
+
+@property (weak, nonatomic) IBOutlet UITextField *firPsdTF;
+
+@property (weak, nonatomic) IBOutlet UITextField *secPsdTf;
+
+
+@property (weak, nonatomic) IBOutlet UIButton *registBtn;
+
+
+
+@property (nonatomic, copy) NSString *selfType;
+@property (nonatomic, strong)BFLoginViewController *loginVc;
+
+@end

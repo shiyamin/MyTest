@@ -1,0 +1,43 @@
+//
+//  BFoodSystemPCH.pch
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/13.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#ifndef BFoodSystemPCH_pch
+#define BFoodSystemPCH_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+/**********头文件引入***********/
+#ifdef __OBJC__
+
+#import "GeneralDefine.h"
+#import "UIColor+Hex.h"
+#import "Utils.h"
+#import "YYModel.h"
+
+#import "BFUserSignelton.h"
+#import "BFUtils.h"
+#import <MBProgressHUD/MBProgressHUD.h>
+#import <AFNetworking/AFNetworking.h>
+#import <MJRefresh/MJRefresh.h>
+#import <SDWebImage/UIImageView+WebCache.h>
+#import <SDWebImage/UIButton+WebCache.h>
+#import "UIColor+Hex.h"
+#import <Masonry/Masonry.h>
+#import "IQKeyboardManager.h"
+#import "TZImagePickerController.h"
+#import "UIView+extension.h"
+
+
+#endif
+
+
+
+
+
+#endif /* BFoodSystemPCH_pch */

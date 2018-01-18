@@ -1,0 +1,112 @@
+//
+//  BFShopBottomCell.m
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/17.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+#import "BFShopBottomCell.h"
+
+@implementation BFShopBottomCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    [self configSubviews];
+    
+    
+}
+- (NSArray *)dataArr {
+    if (!_tagListArr) {
+        _tagListArr = [NSArray array];
+    }
+    return _tagListArr;
+}
+
+
+- (void)configSubviews{
+    self.backgroundColor = [UIColor colorWithHex:BF_COLOR_B1];
+    self.backGrView.backgroundColor = [UIColor whiteColor];
+    self.backGrView.layer.cornerRadius = 5;
+    self.backGrView.clipsToBounds = YES;
+    self.backGrView.layer.borderWidth = 1;
+    self.backGrView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    self.mealView.layer.cornerRadius = 5;
+    self.mealView.clipsToBounds = YES;
+    self.mealView.layer.borderWidth = 1;
+    self.mealView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.mealFreeLabel.tag = 999;
+    
+    self.tagView.layer.cornerRadius = 5;
+    self.tagView.clipsToBounds = YES;
+    self.tagView.layer.borderWidth = 1;
+    self.tagView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+
+    
+    self.tagsmallView.layer.borderWidth = 1;
+    self.tagsmallView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
+    [self.leftBtn setTitle:@"正餐" forState:UIControlStateNormal];
+    [self.rightBtn setTitle:@"快餐" forState:UIControlStateNormal];
+    
+    [self.leftBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 20)];
+    [self.rightBtn setImageEdgeInsets:UIEdgeInsetsMake(5, 5, 5, 20)];
+
+    [self setLeftBtnStatus:nil];
+}
+
+
+- (void)setLeftBtnStatus:(UIButton *)sender{
+    [self.leftBtn setImage:[[UIImage imageNamed:@"dm_xuanzhong"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [self.rightBtn setImage:[[UIImage imageNamed:@"dm_xuanzhong_not"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(payBtnAction:payType:)]) {
+        [self.delegate payBtnAction:self.leftBtn payType:@"0"];
+    }
+}
+
+- (void)setRightBtnStatus:(UIButton *)sender{
+    [self.rightBtn setImage:[[UIImage imageNamed:@"dm_xuanzhong"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    [self.leftBtn setImage:[[UIImage imageNamed:@"dm_xuanzhong_not"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(payBtnAction:payType:)]) {
+        [self.delegate payBtnAction:self.rightBtn payType:@"1"];
+    }
+}
+
+- (void)configTextView:(NSString *)shopDes mealFee:(NSString *)mealFee tagArr:(NSArray *)tagArr andBtnStauts:(NSString *)type {
+    self.textView.text = shopDes;
+    if (mealFee.length != 0) {
+        NSArray *meal = [mealFee componentsSeparatedByString:@"."];
+        self.mealFreeTF.text = [meal firstObject];;
+    }else {
+        self.mealFreeTF.text = nil;
+    }
+    self.tagListArr = tagArr;
+    if ([[NSString stringWithFormat:@"%@",type] isEqualToString:@"0"]) {
+        [self setLeftBtnStatus:nil];
+    }else{
+        [self setRightBtnStatus:nil];
+    }
+}
+
+
+
+- (IBAction)leftBtnAction:(UIButton *)sender {
+    [self setLeftBtnStatus:sender];
+}
+
+
+- (IBAction)rightBtnAction:(UIButton *)sender {
+    [self setRightBtnStatus:sender];
+   
+}
+
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
+@end

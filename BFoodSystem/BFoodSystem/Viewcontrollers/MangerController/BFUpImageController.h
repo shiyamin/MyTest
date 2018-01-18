@@ -1,0 +1,47 @@
+//
+//  BFUpImageController.h
+//  BFoodSystem
+//
+//  Created by 陈名正 on 2017/3/17.
+//  Copyright © 2017年 陈名正. All rights reserved.
+//
+
+
+#import "BFBaseViewController.h"
+
+typedef enum : NSUInteger {
+    upImageTypeUrl,
+    upImageTypeImage,
+} UPImageType;
+
+@protocol BFUpImageControllerDelegate <NSObject>
+
+@optional
+
+- (void)didSelectImageArr:(NSArray *)photoArr imageInfoArr:(NSArray *)photoAsset identifier:(NSString *)identifier;
+
+- (void)uploadImageDidFinshWithId:(NSString *)idStr identifier:(NSString *)identifier photoArr:(NSArray *)photoArr;
+
+- (void)delectPhotoWhitIndex:(NSInteger)index;
+
+@end
+
+typedef void(^SelectArrBlock) (NSMutableArray *selectArrBlock);
+
+@interface BFUpImageController : BFBaseViewController
+
+@property (assign, nonatomic)NSInteger allowUploadNum;
+
+@property (copy, nonatomic) NSString *vcIdentifier;
+
+@property (assign, nonatomic) UPImageType imageType;
+
+@property (nonatomic, assign)id <BFUpImageControllerDelegate> delegate;
+
+@property(nonatomic, copy) SelectArrBlock selectArrBlock;
+
+//刷新列表
+- (void)updtaCollectionViewWithPhotoArr:(NSArray *)photoArr;
+
+
+@end

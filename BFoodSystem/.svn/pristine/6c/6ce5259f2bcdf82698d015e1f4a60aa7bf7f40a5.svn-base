@@ -1,0 +1,161 @@
+0000000000000000000000000000000000000000 a3f1a798e093cebd7a61613a74b9c3beeb18a053 陈名正 <chenmingzheng21@sina.com> 1489392019 +0800	clone: from https://git.coding.net/mingzheng/BFoodSystem.git
+a3f1a798e093cebd7a61613a74b9c3beeb18a053 9d0d272248667ede422b54797c7a05f83cb6dbf8 陈名正 <chenmingzheng21@sina.com> 1489392086 +0800	commit: 基础代码提交
+9d0d272248667ede422b54797c7a05f83cb6dbf8 9fa1396c42e133020765182d873b0537ea9e9ffb 陈名正 <chenmingzheng21@sina.com> 1489392984 +0800	commit: 提加网络请求的业务层的类
+9fa1396c42e133020765182d873b0537ea9e9ffb 38829b938bae1a9348a0e1ff2fabd63c80877f83 陈名正 <chenmingzheng21@sina.com> 1489401566 +0800	commit: 添加加密模块，网络请求完善
+38829b938bae1a9348a0e1ff2fabd63c80877f83 f58855790c1e0038511e155a287856ecb8abc7a0 陈名正 <chenmingzheng21@sina.com> 1489402464 +0800	commit: 网络层小修改
+f58855790c1e0038511e155a287856ecb8abc7a0 98297f69263d50e6d1c934cf28defba9ce337090 陈名正 <chenmingzheng21@sina.com> 1489462108 +0800	commit: 发送验证码接口调通，网络模块初步完成
+98297f69263d50e6d1c934cf28defba9ce337090 8b3e45daa368df08bb10a33a9adc1c9590ed2f3a 陈名正 <chenmingzheng21@sina.com> 1489472918 +0800	commit: 加密签名的排序，登录注册模块和主页之间的跳转
+8b3e45daa368df08bb10a33a9adc1c9590ed2f3a 22436729961068a786c5438da3ba1b12dfbe6bf0 陈名正 <chenmingzheng21@sina.com> 1489473353 +0800	commit: 添加网络请求时 的小菊花
+22436729961068a786c5438da3ba1b12dfbe6bf0 7e1af8c824edbaa15ef55da8826e67371f4ff66c 陈名正 <chenmingzheng21@sina.com> 1489474486 +0800	commit: 增加几个请求
+7e1af8c824edbaa15ef55da8826e67371f4ff66c e3a469da562df2475bcd55fdfaeeebc8a0230177 陈名正 <chenmingzheng21@sina.com> 1489482324 +0800	commit: 网络请求修改传送给后台数据的格式
+e3a469da562df2475bcd55fdfaeeebc8a0230177 1ea6f4d5544ee90593b803e96678aa1c526fc410 陈名正 <chenmingzheng21@sina.com> 1489487462 +0800	commit: 登陆界面UI的搭建
+1ea6f4d5544ee90593b803e96678aa1c526fc410 b2a2e655bbdbf5ec4c63776168e307f61b2daf83 陈名正 <chenmingzheng21@sina.com> 1489626914 +0800	commit: 添加IQkeyboard库，完成首页的UI、注册界面、注册接口、获取验证码接口、网络错误信息的处理
+b2a2e655bbdbf5ec4c63776168e307f61b2daf83 2f250a362e83977cdccc18f0e7e2928f8bfbc5ef 陈名正 <chenmingzheng21@sina.com> 1489657087 +0800	commit: 增加图片选择库
+2f250a362e83977cdccc18f0e7e2928f8bfbc5ef 50a55636846421b5f6c8614fbf336abd32f0ed53 陈名正 <chenmingzheng21@sina.com> 1489658951 +0800	commit: 添加店铺管理的controller
+50a55636846421b5f6c8614fbf336abd32f0ed53 fccdf6613ff2cc3dba69e5dee015de2ebe0e36cf 陈名正 <chenmingzheng21@sina.com> 1489973871 +0800	commit: 打开图库、打开相机、选择图片等逻辑的实现，首页滑动页的第一个页面
+fccdf6613ff2cc3dba69e5dee015de2ebe0e36cf ee526744c30f9ccd607340148472a8bc2a32d6a7 陈名正 <chenmingzheng21@sina.com> 1490005564 +0800	commit: 店铺管理请求数据、提交数据、上传图片完善
+ee526744c30f9ccd607340148472a8bc2a32d6a7 fdeab1ef357026031d2863ec4c195550e855cd29 陈名正 <chenmingzheng21@sina.com> 1490087910 +0800	commit: 区域/餐桌管理页面、餐桌管理页面、新增餐桌页面、下拉选择区域页面、区域管理页面、新增区域的输入弹框、删除区域的弹框、获取区域信息接口
+fdeab1ef357026031d2863ec4c195550e855cd29 3263ee19951fa93c2d64fecab905ac5dabe5767c 陈名正 <chenmingzheng21@sina.com> 1490090632 +0800	commit: 获取区域信息接口、增加区域接口、删除区域接口。
+3263ee19951fa93c2d64fecab905ac5dabe5767c 323391ffa517068fe148364a0f3adc337175a634 陈名正 <chenmingzheng21@sina.com> 1490177641 +0800	commit: 获取餐桌详情接口、修改餐桌信息接口、删除餐桌接口，餐桌数据与界面的对接
+323391ffa517068fe148364a0f3adc337175a634 0ccca9c77ac9b28181b2ca97bf6a51834fa53834 陈名正 <chenmingzheng21@sina.com> 1490257199 +0800	commit: 网络请求签名校验修改
+0ccca9c77ac9b28181b2ca97bf6a51834fa53834 055eb964c1385903a0d1bf4d2ebb1d418fbb384d 陈名正 <chenmingzheng21@sina.com> 1490264625 +0800	commit: 店员管理界面、新增店员界面局部
+055eb964c1385903a0d1bf4d2ebb1d418fbb384d 42ebed2861ad54e032e7488cbf836f001b4016e7 陈名正 <chenmingzheng21@sina.com> 1490341419 +0800	commit: 店员管理界面、新增服务员、新增收银员、修改店员等界面，获取店员列表接口、删除店员、修改店员信息接口。
+42ebed2861ad54e032e7488cbf836f001b4016e7 8848f0d74036e801feb4f0f4a3fb71dfa3538058 陈名正 <chenmingzheng21@sina.com> 1490610672 +0800	commit: 店员管理的接口接通、店员管理界面的cell高度自适应、新增服务员的区域选择处理、菜品管理界面、菜品分类弹框。
+8848f0d74036e801feb4f0f4a3fb71dfa3538058 8b308b3b4103e984fc6c05aacb4668b408110696 陈名正 <chenmingzheng21@sina.com> 1490768645 +0800	commit: 菜品管理界面、新增菜品界面、新增菜品分类界面、菜品列表界面的开发
+8b308b3b4103e984fc6c05aacb4668b408110696 8280246333a45dec69b4a3b1f267ebe008964ba9 陈名正 <chenmingzheng21@sina.com> 1490778476 +0800	commit: 菜品有关的接口
+8280246333a45dec69b4a3b1f267ebe008964ba9 c4697f43f0aaa73078f785460650f1ffd6cba6e9 陈名正 <chenmingzheng21@sina.com> 1490778529 +0800	commit: 提交pods导入的文件，以及删除的文件
+c4697f43f0aaa73078f785460650f1ffd6cba6e9 d4769bad573d42462db9f28ad63c0721861ec1ff 陈名正 <chenmingzheng21@sina.com> 1490782455 +0800	commit: 菜品管理首页数据接通相关逻辑实现、菜品列表数据接通
+d4769bad573d42462db9f28ad63c0721861ec1ff a5c77e8cdda9ad3830a11fafef8ad04e44709e41 陈名正 <chenmingzheng21@sina.com> 1490783192 +0800	commit: 新增菜品界面增加价格输入
+a5c77e8cdda9ad3830a11fafef8ad04e44709e41 ff1bf7fb29a2efc09f941d5208d088bfd6c69725 陈名正 <chenmingzheng21@sina.com> 1490957888 +0800	commit: 菜品管理全部接通、统计查询主界面、日期选择界面
+ff1bf7fb29a2efc09f941d5208d088bfd6c69725 cbe9c56c25909ac8696119e993fc991be4ac687b 陈名正 <chenmingzheng21@sina.com> 1491042151 +0800	commit: 统计报表页面、我的钱包页面
+cbe9c56c25909ac8696119e993fc991be4ac687b c0f5c5b21ea195677e9dadccbc8ae2861fef9e24 陈名正 <chenmingzheng21@sina.com> 1491395470 +0800	commit: 增加银行卡相关接口，单日流水界面数据接入、菜品销量数据接入、提现选择界面数据接入、添加银行卡完成、完成提现界面
+c0f5c5b21ea195677e9dadccbc8ae2861fef9e24 9817764bd43b4e2e4f72d8f73c4134ef5957dd77 陈名正 <chenmingzheng21@sina.com> 1491450386 +0800	commit: 提现界面以及接口，我的钱包界面数据接入，账户明细查询界面数据接入，
+9817764bd43b4e2e4f72d8f73c4134ef5957dd77 e27116bef92adf5e3cfe0a750e6720ee6b60639c 陈名正 <chenmingzheng21@sina.com> 1491461162 +0800	commit: 年度/月度查询数据接入、菜品撤销记录数据接入
+e27116bef92adf5e3cfe0a750e6720ee6b60639c c15e75e00147b805a8211a0ae4f956058279d398 陈名正 <chenmingzheng21@sina.com> 1491465097 +0800	commit: 用户未登录的错误信息处理、统计类型图片替换.
+c15e75e00147b805a8211a0ae4f956058279d398 e01e073be78461d938a335783e151dd584dad37b 陈名正 <chenmingzheng21@sina.com> 1491466547 +0800	commit: 添加启动图
+e01e073be78461d938a335783e151dd584dad37b f449506acb71bf244be78ce3efaa66c8bc087ee7 陈名正 <chenmingzheng21@sina.com> 1491470058 +0800	commit: 首页增加刷新按钮
+f449506acb71bf244be78ce3efaa66c8bc087ee7 e78fc3bada0b3ddbc80234dd3af9e573d887020b 陈名正 <chenmingzheng21@sina.com> 1491474706 +0800	pull origin master: Fast-forward
+e78fc3bada0b3ddbc80234dd3af9e573d887020b e81b1d168e338a489d912670bb4a77f868e1ade7 陈名正 <chenmingzheng21@sina.com> 1491476368 +0800	pull origin master: Fast-forward
+e81b1d168e338a489d912670bb4a77f868e1ade7 e78fc3bada0b3ddbc80234dd3af9e573d887020b 陈名正 <chenmingzheng21@sina.com> 1491476438 +0800	reset: moving to e78fc3bada0b3ddbc80234dd3af9e573d887020b
+e78fc3bada0b3ddbc80234dd3af9e573d887020b bc328f1430168419a9b45008a2e1233164858b39 陈名正 <chenmingzheng21@sina.com> 1491531168 +0800	pull origin master: Fast-forward
+bc328f1430168419a9b45008a2e1233164858b39 92bae45cc771982867dab0299f935bdc444f72d1 陈名正 <chenmingzheng21@sina.com> 1491789193 +0800	reset: moving to 92bae45cc771982867dab0299f935bdc444f72d1
+92bae45cc771982867dab0299f935bdc444f72d1 e81b1d168e338a489d912670bb4a77f868e1ade7 陈名正 <chenmingzheng21@sina.com> 1491790955 +0800	reset: moving to e81b1d168e338a489d912670bb4a77f868e1ade7
+e81b1d168e338a489d912670bb4a77f868e1ade7 64f96133b8266b0f1e8b3114bb2575e01872ca05 陈名正 <chenmingzheng21@sina.com> 1491791012 +0800	pull origin master: Fast-forward
+64f96133b8266b0f1e8b3114bb2575e01872ca05 f5e37f0d14846329a0173707b764d95a4ba43096 陈名正 <chenmingzheng21@sina.com> 1491791806 +0800	reset: moving to f5e37f0d14846329a0173707b764d95a4ba43096
+f5e37f0d14846329a0173707b764d95a4ba43096 64f96133b8266b0f1e8b3114bb2575e01872ca05 陈名正 <chenmingzheng21@sina.com> 1491791816 +0800	pull origin master: Fast-forward
+64f96133b8266b0f1e8b3114bb2575e01872ca05 ebcd9567695c7c6de0783daf8fe42c8c7be2cca1 陈名正 <chenmingzheng21@sina.com> 1491792151 +0800	pull origin master: Fast-forward
+ebcd9567695c7c6de0783daf8fe42c8c7be2cca1 f5e37f0d14846329a0173707b764d95a4ba43096 陈名正 <chenmingzheng21@sina.com> 1491792451 +0800	reset: moving to f5e37f0d14846329a0173707b764d95a4ba43096
+f5e37f0d14846329a0173707b764d95a4ba43096 ebcd9567695c7c6de0783daf8fe42c8c7be2cca1 陈名正 <chenmingzheng21@sina.com> 1491792915 +0800	pull origin master: Fast-forward
+ebcd9567695c7c6de0783daf8fe42c8c7be2cca1 3511a9a50329ed5c70ec7d68753c365c32d0ccce 陈名正 <chenmingzheng21@sina.com> 1491793354 +0800	commit: 解决冲突
+3511a9a50329ed5c70ec7d68753c365c32d0ccce b3120bdc01f7b3a3caaeb6ad58bb5d50f4ab6c77 陈名正 <chenmingzheng21@sina.com> 1491796123 +0800	pull origin master: Fast-forward
+b3120bdc01f7b3a3caaeb6ad58bb5d50f4ab6c77 1eacaa2277b86fb9a7e4dcd8ea042d3a26762993 陈名正 <chenmingzheng21@sina.com> 1491807708 +0800	commit: 服务员点菜界面
+1eacaa2277b86fb9a7e4dcd8ea042d3a26762993 d5e178ef8efe79a3ef934c8bf7e49a12720e6e46 陈名正 <chenmingzheng21@sina.com> 1491817677 +0800	commit: 新餐桌开台，加入购物车
+d5e178ef8efe79a3ef934c8bf7e49a12720e6e46 ab2e2f7be9f0129b40abdf5155863d042363abcb 陈名正 <chenmingzheng21@sina.com> 1491819003 +0800	commit: 服务员首页姓名、时间、以及推出登录操作
+ab2e2f7be9f0129b40abdf5155863d042363abcb 56db13e7785703c4ae3bbd1b67864c5ee56a9509 陈名正 <chenmingzheng21@sina.com> 1491821296 +0800	commit: 管理员首页流水数据的接入
+56db13e7785703c4ae3bbd1b67864c5ee56a9509 981ab29c51b055e2bcd5b3bf2d6a86a5fd6055a6 陈名正 <chenmingzheng21@sina.com> 1491875439 +0800	pull origin master: Fast-forward
+981ab29c51b055e2bcd5b3bf2d6a86a5fd6055a6 76b902e5288f06e403508da2f7beb5e7d7b16baf 陈名正 <chenmingzheng21@sina.com> 1491879041 +0800	commit: 添加极光push模块
+76b902e5288f06e403508da2f7beb5e7d7b16baf adf102e99004f500c08e4f13dd186d8f0ce2d401 陈名正 <chenmingzheng21@sina.com> 1491879282 +0800	commit: 极光推送的sdk
+adf102e99004f500c08e4f13dd186d8f0ce2d401 fdbaf10e7a04cf4f2c425894325c0d52e6a9a12b 陈名正 <chenmingzheng21@sina.com> 1491879289 +0800	pull origin master: Merge made by the 'recursive' strategy.
+fdbaf10e7a04cf4f2c425894325c0d52e6a9a12b 31e2da5fc30b8df4c5426c0a9af08cc09f9fd508 陈名正 <chenmingzheng21@sina.com> 1491893127 +0800	commit: 管理员首页数据刷新的实现
+31e2da5fc30b8df4c5426c0a9af08cc09f9fd508 f97eb73c99637f8d4da35841cb9b7dc2b75e41f7 陈名正 <chenmingzheng21@sina.com> 1491893630 +0800	commit (merge): Merge branch 'master' of https://git.coding.net/mingzheng/BFoodSystem
+f97eb73c99637f8d4da35841cb9b7dc2b75e41f7 6cb3f4360f759adf85259d3951fb8062d80bc3c8 陈名正 <chenmingzheng21@sina.com> 1491901484 +0800	commit: 管理员首页流水数据处理、注册成功后的回调、服务员首页搜索餐桌列表
+6cb3f4360f759adf85259d3951fb8062d80bc3c8 0bc47f09b2ecab0f22906dd93699b5196e79a5d7 陈名正 <chenmingzheng21@sina.com> 1491901653 +0800	commit (merge): Merge branch 'master' of https://git.coding.net/mingzheng/BFoodSystem
+0bc47f09b2ecab0f22906dd93699b5196e79a5d7 a9de01d2aa895b68763a168a5085779470e16f81 陈名正 <chenmingzheng21@sina.com> 1491902819 +0800	commit: 服务员首页数据查询
+a9de01d2aa895b68763a168a5085779470e16f81 f4e1ed6af1044a93e212c0ed0b0fdc5d39e94379 陈名正 <chenmingzheng21@sina.com> 1491907063 +0800	commit: 用户被强制下线的错误信息提示
+f4e1ed6af1044a93e212c0ed0b0fdc5d39e94379 940ee108b2b7c8458c8908d120f1b33475a91261 陈名正 <chenmingzheng21@sina.com> 1491907789 +0800	commit: 小的修改
+940ee108b2b7c8458c8908d120f1b33475a91261 a8e330fe6e1a6f194afcdceb01c4c0a438244b82 陈名正 <chenmingzheng21@sina.com> 1491960893 +0800	pull origin master: Fast-forward
+a8e330fe6e1a6f194afcdceb01c4c0a438244b82 a8e3214270f4ea4cb9013c2496ef51489fa3ebd9 陈名正 <chenmingzheng21@sina.com> 1491963710 +0800	commit: 服务员头部点菜下单流程
+a8e3214270f4ea4cb9013c2496ef51489fa3ebd9 e4ddeb7c274ccde0522f075433ee291cb79af28c 陈名正 <chenmingzheng21@sina.com> 1491964863 +0800	commit: 搜索餐桌开台逻辑
+e4ddeb7c274ccde0522f075433ee291cb79af28c ef4609852788ffbe15285134b13c525107396c85 陈名正 <chenmingzheng21@sina.com> 1491975263 +0800	commit: 店铺管理的图片修改
+ef4609852788ffbe15285134b13c525107396c85 3a3e36285375717fae5de06f4868dfcf27496849 陈名正 <chenmingzheng21@sina.com> 1491982500 +0800	commit: 菜品管理添加图片的bug修改
+3a3e36285375717fae5de06f4868dfcf27496849 bfd7b2392fc888f6118d66b5e2464c17bef9dffe 陈名正 <chenmingzheng21@sina.com> 1491985724 +0800	commit: 管理员首页的title、个人中心的小bug修改
+bfd7b2392fc888f6118d66b5e2464c17bef9dffe 63a574cdef8c1190e4c35544f7093d0a533eeaf7 陈名正 <chenmingzheng21@sina.com> 1491992553 +0800	commit: 餐桌下单的小修改
+63a574cdef8c1190e4c35544f7093d0a533eeaf7 c5105dc762f2a21efe0e88436b8e774566862e78 陈名正 <chenmingzheng21@sina.com> 1492051277 +0800	commit: bundleID 修改
+c5105dc762f2a21efe0e88436b8e774566862e78 63a574cdef8c1190e4c35544f7093d0a533eeaf7 陈名正 <chenmingzheng21@sina.com> 1492051513 +0800	reset: moving to 63a574cdef8c1190e4c35544f7093d0a533eeaf7
+63a574cdef8c1190e4c35544f7093d0a533eeaf7 d7c94735855d0893e9a8a78099f22445bacac3ac 陈名正 <chenmingzheng21@sina.com> 1492051525 +0800	pull origin master: Fast-forward
+d7c94735855d0893e9a8a78099f22445bacac3ac 658362eb482748e8e048e9e8b8b61bf26a487d04 陈名正 <chenmingzheng21@sina.com> 1492063527 +0800	commit: 消息中心数据接入
+658362eb482748e8e048e9e8b8b61bf26a487d04 8741fe853ca2da0c3c9e84d335476b23a12dbaef 陈名正 <chenmingzheng21@sina.com> 1492064965 +0800	commit: 添加几行消息推送的代码
+8741fe853ca2da0c3c9e84d335476b23a12dbaef 164cd5e145f4664e2126c6c9518f38beb7a1e5e9 陈名正 <chenmingzheng21@sina.com> 1492067402 +0800	commit: 登录时错误信息的处理
+164cd5e145f4664e2126c6c9518f38beb7a1e5e9 665c6cf3c862092434a4e34f0ae42e93be9019b1 陈名正 <chenmingzheng21@sina.com> 1492070653 +0800	commit: 支付方式界面
+665c6cf3c862092434a4e34f0ae42e93be9019b1 82efad8516f701c5ced5a80e8eef9a60f59aefd6 陈名正 <chenmingzheng21@sina.com> 1492070844 +0800	pull origin master: Fast-forward
+82efad8516f701c5ced5a80e8eef9a60f59aefd6 2b29139df96ae730ae605c5558919e93ac919eb9 陈名正 <chenmingzheng21@sina.com> 1492071938 +0800	commit: 支付方式确认支付
+2b29139df96ae730ae605c5558919e93ac919eb9 b039394db01ffa3454d56fed9711812965e681df 陈名正 <chenmingzheng21@sina.com> 1492079354 +0800	commit: 催菜、修改用餐人数
+b039394db01ffa3454d56fed9711812965e681df 72215c7106b7ddef197d86529c488ed1b1d23666 陈名正 <chenmingzheng21@sina.com> 1492079424 +0800	commit (merge): Merge branch 'master' of https://git.coding.net/mingzheng/BFoodSystem
+72215c7106b7ddef197d86529c488ed1b1d23666 393a3a48fd5da6771413b655a2fe94990e34009e 陈名正 <chenmingzheng21@sina.com> 1492133533 +0800	pull origin master: Fast-forward
+393a3a48fd5da6771413b655a2fe94990e34009e 18221b75ec0aac7e7dbc1fec3fe9ca66ca85c59f 陈名正 <chenmingzheng21@sina.com> 1492133870 +0800	pull origin master: Fast-forward
+18221b75ec0aac7e7dbc1fec3fe9ca66ca85c59f 508724ea5d6a4ae5dba7d484663476e31a797020 陈名正 <chenmingzheng21@sina.com> 1492136836 +0800	commit: 服务员选择菜品界面退出时，添加清空菜品的提示
+508724ea5d6a4ae5dba7d484663476e31a797020 d37744cc8ffe6de573df04a49c0706e5289714e0 陈名正 <chenmingzheng21@sina.com> 1492141824 +0800	commit: 菜品管理、店员管理、餐桌管理的小bug修改
+d37744cc8ffe6de573df04a49c0706e5289714e0 83db97b80996cf5f499cde780cc5e94c2d0136d1 陈名正 <chenmingzheng21@sina.com> 1492141830 +0800	pull origin master: Merge made by the 'recursive' strategy.
+83db97b80996cf5f499cde780cc5e94c2d0136d1 6e12c228b537fa8f3819b796c62422bc57971b19 陈名正 <chenmingzheng21@sina.com> 1492149334 +0800	commit: 服务员首页搜索的bug
+6e12c228b537fa8f3819b796c62422bc57971b19 8950b05eae167fbb04ff4f3db0e88ca803bb86d3 陈名正 <chenmingzheng21@sina.com> 1492149340 +0800	pull origin master: Merge made by the 'recursive' strategy.
+8950b05eae167fbb04ff4f3db0e88ca803bb86d3 fca1749ffc8687ee8250953f7e087c3f25e3c06a 陈名正 <chenmingzheng21@sina.com> 1492151737 +0800	commit: 生成二维码以及保存到相册的代码
+fca1749ffc8687ee8250953f7e087c3f25e3c06a 66d1f6df815ba3c0dc08fc28e5ccd598a6eb29ec 陈名正 <chenmingzheng21@sina.com> 1492153992 +0800	commit: 生成二维码修改
+66d1f6df815ba3c0dc08fc28e5ccd598a6eb29ec 80a10983d82eb1edc5fa98b9f369a04124704e92 陈名正 <chenmingzheng21@sina.com> 1492154265 +0800	pull origin master: Fast-forward
+80a10983d82eb1edc5fa98b9f369a04124704e92 b157ed42a8a57b14a5aead8e7f091a64d8b4ae52 陈名正 <chenmingzheng21@sina.com> 1492155781 +0800	pull origin master: Fast-forward
+b157ed42a8a57b14a5aead8e7f091a64d8b4ae52 8408ad45f3fcff11b85fe53a6bfb161b0fabdb77 陈名正 <chenmingzheng21@sina.com> 1492396716 +0800	commit: 已下单界面小修改
+8408ad45f3fcff11b85fe53a6bfb161b0fabdb77 5580cdd76c5054de7278ecc05bb477aad50152df 陈名正 <chenmingzheng21@sina.com> 1492396724 +0800	pull origin master: Merge made by the 'recursive' strategy.
+5580cdd76c5054de7278ecc05bb477aad50152df f818f44f3c67869f0385293db5f0a85e42acfe46 陈名正 <chenmingzheng21@sina.com> 1492401415 +0800	commit: 客户管理的消息详情展示
+f818f44f3c67869f0385293db5f0a85e42acfe46 bb5d2de4013680d85117364774f170b4cc7168cd 陈名正 <chenmingzheng21@sina.com> 1492408300 +0800	commit: 新增餐桌时区域选择优化
+bb5d2de4013680d85117364774f170b4cc7168cd 9ea69f476b0cbeec9d7d3c3b14db768dc09e5cff 陈名正 <chenmingzheng21@sina.com> 1492408879 +0800	commit: 客户管理提交消息修改
+9ea69f476b0cbeec9d7d3c3b14db768dc09e5cff 466b37cc822f26ca06644b2355e6012381b2da01 陈名正 <chenmingzheng21@sina.com> 1492413141 +0800	pull origin master: Fast-forward
+466b37cc822f26ca06644b2355e6012381b2da01 3bacf39f543b7b074357cc334f210926d83e49af 陈名正 <chenmingzheng21@sina.com> 1492413282 +0800	pull origin master: Fast-forward
+3bacf39f543b7b074357cc334f210926d83e49af 20d856ac7af752a02f1205702729e1e9652f92c4 陈名正 <chenmingzheng21@sina.com> 1492416119 +0800	commit: 去掉appkey 和appsecret接口 初始化应用接口 （给后台传极光的注册id）
+20d856ac7af752a02f1205702729e1e9652f92c4 f5879425c1205d2dd129827679e149b74cea2b99 陈名正 <chenmingzheng21@sina.com> 1492416216 +0800	commit (merge): Merge branch 'master' of https://git.coding.net/mingzheng/BFoodSystem
+f5879425c1205d2dd129827679e149b74cea2b99 ee92863f3b0bd9cccbc69c4ee6532b90fe0bdce0 陈名正 <chenmingzheng21@sina.com> 1492425744 +0800	commit: 丢失代码提交
+ee92863f3b0bd9cccbc69c4ee6532b90fe0bdce0 2b013b55a80ad21da8ed2f4c909a86ad910abaad 陈名正 <chenmingzheng21@sina.com> 1492425751 +0800	pull origin master: Merge made by the 'recursive' strategy.
+2b013b55a80ad21da8ed2f4c909a86ad910abaad 8a2f76d64149fc1546387d2bb5476fa370655be6 陈名正 <chenmingzheng21@sina.com> 1492426799 +0800	pull origin master: Fast-forward
+8a2f76d64149fc1546387d2bb5476fa370655be6 91ace5ebdcb658679b7f9b3aa0da719b1535d4ef 陈名正 <chenmingzheng21@sina.com> 1492481517 +0800	commit: 店铺管理、菜品管理图片加载优化
+91ace5ebdcb658679b7f9b3aa0da719b1535d4ef 3e621f5f0a708629c37f166a1a3ffd0f2b14cb88 陈名正 <chenmingzheng21@sina.com> 1492481523 +0800	pull origin master: Merge made by the 'recursive' strategy.
+3e621f5f0a708629c37f166a1a3ffd0f2b14cb88 8ac1e83d1398467b94c35efbb236acef86b662c7 陈名正 <chenmingzheng21@sina.com> 1492486547 +0800	commit: 服务员首页搜索去掉第一响应
+8ac1e83d1398467b94c35efbb236acef86b662c7 1f11bf754909c744f2810b298bdf20477bac1fd2 陈名正 <chenmingzheng21@sina.com> 1492486557 +0800	pull origin master: Merge made by the 'recursive' strategy.
+1f11bf754909c744f2810b298bdf20477bac1fd2 49e1c73125d72d344e32cef50989b25c90147efe 陈名正 <chenmingzheng21@sina.com> 1492488214 +0800	commit: 个人中心修改
+49e1c73125d72d344e32cef50989b25c90147efe 6bf0d908dadf57a729e9d599a6ecff01e2a17550 陈名正 <chenmingzheng21@sina.com> 1492500596 +0800	commit: 管理员的消息中心的消息详情展示
+6bf0d908dadf57a729e9d599a6ecff01e2a17550 cbfc2eb70fdc34ccff6b5ef26a65d0b8362f6aa4 陈名正 <chenmingzheng21@sina.com> 1492500604 +0800	pull origin master: Merge made by the 'recursive' strategy.
+cbfc2eb70fdc34ccff6b5ef26a65d0b8362f6aa4 36ce9b8f2ae0d9a056d678c9c4c86d6875aa6a08 陈名正 <chenmingzheng21@sina.com> 1492502169 +0800	commit: 环境配置以及个人中心
+36ce9b8f2ae0d9a056d678c9c4c86d6875aa6a08 7e4eba382cddb6401f2c6f7e85bdeea9fc417f41 陈名正 <chenmingzheng21@sina.com> 1492656658 +0800	commit: 店面管理的小bug修改
+7e4eba382cddb6401f2c6f7e85bdeea9fc417f41 e77f10ca976572f44b4217a9c5b6e852ff8e7cb2 陈名正 <chenmingzheng21@sina.com> 1492656675 +0800	pull origin master: Merge made by the 'recursive' strategy.
+e77f10ca976572f44b4217a9c5b6e852ff8e7cb2 a69bb65625cffed12f5a10ac016022040ff9175e 陈名正 <chenmingzheng21@sina.com> 1492669532 +0800	commit: 线上环境测试的一些细节修改
+a69bb65625cffed12f5a10ac016022040ff9175e 2eeb0242f2c58ee01cbbf16cf7162e2a4c4c36cd 陈名正 <chenmingzheng21@sina.com> 1492669541 +0800	pull origin master: Merge made by the 'recursive' strategy.
+2eeb0242f2c58ee01cbbf16cf7162e2a4c4c36cd 67f0a4b870b79af13a0a6799e5b52af62b02ca4b 陈名正 <chenmingzheng21@sina.com> 1492753703 +0800	pull origin master: Fast-forward
+67f0a4b870b79af13a0a6799e5b52af62b02ca4b f10ae73951802ac9b27c9b165c07815cc79cabb0 陈名正 <chenmingzheng21@sina.com> 1493004537 +0800	commit: 没有区域选择时，弹框提示
+f10ae73951802ac9b27c9b165c07815cc79cabb0 2ea56e28ec912eac549c915ba4eacc9d43a5ef3a 陈名正 <chenmingzheng21@sina.com> 1493004544 +0800	pull origin master: Merge made by the 'recursive' strategy.
+2ea56e28ec912eac549c915ba4eacc9d43a5ef3a a79c0bf3b9cfcab8310464dbb6d0a9e138644403 陈名正 <chenmingzheng21@sina.com> 1493004934 +0800	commit: 生成二维码时去掉背景图
+a79c0bf3b9cfcab8310464dbb6d0a9e138644403 87d2d825b99c83fe60b1e41e4f611029f5f86cea 陈名正 <chenmingzheng21@sina.com> 1493109571 +0800	commit: 服务员点菜界面的搜索功能
+87d2d825b99c83fe60b1e41e4f611029f5f86cea 7c59fff97cac35fa6f550c8450e7259d625f20ae 陈名正 <chenmingzheng21@sina.com> 1493109590 +0800	pull origin master: Merge made by the 'recursive' strategy.
+7c59fff97cac35fa6f550c8450e7259d625f20ae 27ba7b8075525929210222521ecfddb11fb6b4c7 陈名正 <chenmingzheng21@sina.com> 1493110371 +0800	pull origin master: Fast-forward
+27ba7b8075525929210222521ecfddb11fb6b4c7 e8e8ec5426c88a74744a9488e86fda04f93a5e67 陈名正 <chenmingzheng21@sina.com> 1493112904 +0800	commit: 查询的图片修改
+e8e8ec5426c88a74744a9488e86fda04f93a5e67 1fa729e39f05987cf3b14fe7bf99181a886fcb69 陈名正 <chenmingzheng21@sina.com> 1493112910 +0800	pull origin master: Merge made by the 'recursive' strategy.
+1fa729e39f05987cf3b14fe7bf99181a886fcb69 bb517206ea3c461ffcb5505dd390fd1d4834219f 陈名正 <chenmingzheng21@sina.com> 1493114594 +0800	commit: 图片加载优化
+bb517206ea3c461ffcb5505dd390fd1d4834219f ca2023bd00030db8c72d77745c1f2eb11c254be5 陈名正 <chenmingzheng21@sina.com> 1493115093 +0800	commit: 收银员 服务员的餐桌就餐人数修改
+ca2023bd00030db8c72d77745c1f2eb11c254be5 525748cd5697547c11233bb8d6c00a3c872de62d 陈名正 <chenmingzheng21@sina.com> 1493118228 +0800	commit: 店员管理、餐桌详情返回时的提示信息修改
+525748cd5697547c11233bb8d6c00a3c872de62d 64ba6b68ab944823b8417f4954345dd5ee1f9ef9 陈名正 <chenmingzheng21@sina.com> 1493174459 +0800	commit: 图片icon的修改
+64ba6b68ab944823b8417f4954345dd5ee1f9ef9 9174190aedc40e7918f2ee43bcb6699480e5a0a9 陈名正 <chenmingzheng21@sina.com> 1493174828 +0800	commit (merge): Merge branch 'master' of https://git.coding.net/mingzheng/BFoodSystem
+9174190aedc40e7918f2ee43bcb6699480e5a0a9 d52c17f08bbfad750419e7355dc18dce318ba179 陈名正 <chenmingzheng21@sina.com> 1493175559 +0800	pull origin master: Fast-forward
+d52c17f08bbfad750419e7355dc18dce318ba179 3e404e11ab19a5ec7c0a51526b42e9d543b33d18 陈名正 <chenmingzheng21@sina.com> 1493177059 +0800	pull origin master: Fast-forward
+3e404e11ab19a5ec7c0a51526b42e9d543b33d18 2cb27404cc730b149bec8ef002c79bdc36895e66 陈名正 <chenmingzheng21@sina.com> 1493177800 +0800	commit: 小修改
+2cb27404cc730b149bec8ef002c79bdc36895e66 5953e0b585698b7fa28e61f9889c9221bc4d7913 陈名正 <chenmingzheng21@sina.com> 1493191321 +0800	commit: 图片下载处理优化
+5953e0b585698b7fa28e61f9889c9221bc4d7913 cd5563809227087fef1edc6849ad0c872d8b8d4a 陈名正 <chenmingzheng21@sina.com> 1493196075 +0800	commit: 菜品界面图片高度修改
+cd5563809227087fef1edc6849ad0c872d8b8d4a e30d1fa08b71db287814626cfd33b3d7fc14bc97 陈名正 <chenmingzheng21@sina.com> 1493196081 +0800	pull origin master: Merge made by the 'recursive' strategy.
+e30d1fa08b71db287814626cfd33b3d7fc14bc97 9c6df05b03472d93b12420d1dc2a37ec9f0b4385 陈名正 <chenmingzheng21@sina.com> 1493199729 +0800	commit: 小问题修改
+9c6df05b03472d93b12420d1dc2a37ec9f0b4385 7c81ad6af23d0b623aa9508b2ce8225186680834 陈名正 <chenmingzheng21@sina.com> 1493199737 +0800	pull origin master: Merge made by the 'recursive' strategy.
+7c81ad6af23d0b623aa9508b2ce8225186680834 5a66c40b76246c3ef557d28953532a2435786cc3 陈名正 <chenmingzheng21@sina.com> 1493255939 +0800	commit: 图片上传时，进行图片压缩
+5a66c40b76246c3ef557d28953532a2435786cc3 2a350219d24fbf3769084cc969b0a0d7d6f77c8c 陈名正 <chenmingzheng21@sina.com> 1493255946 +0800	pull origin master: Merge made by the 'recursive' strategy.
+2a350219d24fbf3769084cc969b0a0d7d6f77c8c b283922ce96e3c04008f35645e863ed08aca1e2e 陈名正 <chenmingzheng21@sina.com> 1493260526 +0800	commit: 店铺管理的小bug修改
+b283922ce96e3c04008f35645e863ed08aca1e2e 0eb2783d4589110d03d51cbef49d9d807a91fe16 陈名正 <chenmingzheng21@sina.com> 1493265027 +0800	commit: 店铺管理的小修改
+0eb2783d4589110d03d51cbef49d9d807a91fe16 21a20e5786eb232a67c03ab9e555056420b2a333 陈名正 <chenmingzheng21@sina.com> 1493265031 +0800	pull origin master: Merge made by the 'recursive' strategy.
+21a20e5786eb232a67c03ab9e555056420b2a333 9ece40e85eee5885d9c4d3162893d74b8d41860b 陈名正 <chenmingzheng21@sina.com> 1493271175 +0800	commit: 增加默认图片的处理
+9ece40e85eee5885d9c4d3162893d74b8d41860b 6d995fb6ae8a288ccf65627ce28416b03cbf773c 陈名正 <chenmingzheng21@sina.com> 1493271185 +0800	pull origin master: Merge made by the 'recursive' strategy.
+6d995fb6ae8a288ccf65627ce28416b03cbf773c 17a3819091bd6a19b3b98cc8d9a5f36372dec814 陈名正 <chenmingzheng21@sina.com> 1493274258 +0800	commit: 保存二维码的修改
+17a3819091bd6a19b3b98cc8d9a5f36372dec814 7e667193399646963c24b7c98c9acbe671b2b780 陈名正 <chenmingzheng21@sina.com> 1493288591 +0800	commit: 菜品管理修改、消费修改
+7e667193399646963c24b7c98c9acbe671b2b780 a148a496f05c2b4b8371c74917211150b278a9b0 陈名正 <chenmingzheng21@sina.com> 1493288756 +0800	pull origin master: Merge made by the 'recursive' strategy.
+a148a496f05c2b4b8371c74917211150b278a9b0 afe9a4b54b00d0bfd370b9e5146998baaeef2abe 陈名正 <chenmingzheng21@sina.com> 1493688452 +0800	pull origin master: Fast-forward
+afe9a4b54b00d0bfd370b9e5146998baaeef2abe 7a78bace2238998bb272e4365a7133b06473bb71 陈名正 <chenmingzheng21@sina.com> 1493969851 +0800	commit: 几行注释
+7a78bace2238998bb272e4365a7133b06473bb71 0a7e58170cfdac0a899d470ac9849d7a0bbe5ef1 陈名正 <chenmingzheng21@sina.com> 1493969867 +0800	pull origin master: Merge made by the 'recursive' strategy.
+0a7e58170cfdac0a899d470ac9849d7a0bbe5ef1 f56eba276bc6702f37801bcae09b2ce8c6c9d6e6 陈名正 <chenmingzheng21@sina.com> 1496900894 +0800	reset: moving to f56eba276bc6702f37801bcae09b2ce8c6c9d6e6
+f56eba276bc6702f37801bcae09b2ce8c6c9d6e6 5cd788fd9f2c5ed2bf2fd3421da0096a1d7d7559 陈名正 <chenmingzheng21@sina.com> 1496905163 +0800	commit: 域名修改、登录接口修改、催菜修改。
+5cd788fd9f2c5ed2bf2fd3421da0096a1d7d7559 ff0775b0a07e816fd85f7ba34ec1cde6fb72a5c3 陈名正 <chenmingzheng21@sina.com> 1497512764 +0800	commit: 打印功能
+ff0775b0a07e816fd85f7ba34ec1cde6fb72a5c3 812e4a9edd90d481ba48b085470be666fe39467b 陈名正 <chenmingzheng21@sina.com> 1497606855 +0800	commit: 提示音、打印等修改
+812e4a9edd90d481ba48b085470be666fe39467b f8f5b8e0690b43880bdcf06fb9d75c2bedff2c90 陈名正 <chenmingzheng21@sina.com> 1498040922 +0800	commit: 打印设置
+f8f5b8e0690b43880bdcf06fb9d75c2bedff2c90 6022612cffc2b221dae1972e03f2d926514e9009 陈名正 <chenmingzheng21@sina.com> 1498295612 +0800	commit: 最终的修改
+6022612cffc2b221dae1972e03f2d926514e9009 343e2bf32535be487b4b14fd4239358653516b30 陈名正 <chenmingzheng21@sina.com> 1498786792 +0800	commit: 打印 、推送、提现的逻辑修改，首页布局修改
+343e2bf32535be487b4b14fd4239358653516b30 f98cef3324bdd0e036ea23b2867bb4308fe62c02 陈名正 <chenmingzheng21@sina.com> 1499045613 +0800	commit: 个人中心修改手机号码
